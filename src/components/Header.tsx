@@ -82,5 +82,14 @@ const HeaderContainer = styled.header`
     button {
       font-size: 1.8rem;
     }
+    div,
+    button,
+    svg rect,
+    svg circle {
+      cursor: pointer;
+    }
+    svg:hover rect {
+      fill: #a445ed;
+    }
   }
 `;

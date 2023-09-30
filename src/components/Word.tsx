@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import play from "../assets/icon-play.svg";
+
 const Word = () => {
   return (
     <Div>
@@ -9,7 +9,27 @@ const Word = () => {
           <p>/'ki:bɔ:d/</p>
         </div>
         <div>
-          <img src={play} alt="play sound" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="75"
+            height="75"
+            viewBox="0 0 75 75"
+            fill="none"
+          >
+            <circle
+              opacity="0.25"
+              cx="37.5"
+              cy="37.5"
+              r="37.5"
+              fill="#A445ED"
+            />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M29 27V48L50 37.5L29 27Z"
+              fill="#A445ED"
+            />
+          </svg>
         </div>
       </article>
       <WordMean>
@@ -41,7 +61,7 @@ const Div = styled.div`
     font-weight: 400;
     line-height: 2.4rem;
   }
-  div img {
+  div svg {
     max-width: 4.8rem;
     width: 100%;
     height: auto;
@@ -56,8 +76,15 @@ const Div = styled.div`
     p {
       font-size: 2.4rem;
     }
-    div img {
+    div svg {
       max-width: 7.5rem;
+      cursor: pointer;
+    }
+    div svg:hover circle {
+      opacity: 1;
+    }
+    div svg:hover path {
+      fill: white;
     }
   }
 `;
