@@ -28,7 +28,6 @@ const Main = styled.main`
     padding: 1.4rem 2.44rem 1.5rem 2.4rem;
     display: flex;
     justify-content: space-between;
-    gap: 3.3rem;
   }
   form img {
     max-width: 1.555rem;
@@ -46,5 +45,14 @@ const Main = styled.main`
   }
   input::placeholder {
     opacity: 0.5;
+  }
+
+  @media (min-width: 768px) {
+    form {
+      padding: 2.2rem 2.4rem 2.1rem 2.4rem;
+    }
+    input {
+      font-size: 2rem;
+    }
   }
 `;

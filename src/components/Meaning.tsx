@@ -64,4 +64,24 @@ const Div = styled.div`
       margin: 0;
     }
   }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 2rem;
+      margin-bottom: 2.7rem;
+    }
+    ul {
+      padding-left: 4.8rem;
+    }
+    li {
+      font-size: 1.8rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    div {
+      margin-top: 4.1rem;
+      gap: 4rem;
+    }
+  }
 `;

@@ -15,16 +15,18 @@ const Verbs = () => {
         <p>“Keyboarding is the part of this job I hate the most.”</p>
       </ul>
       <hr />
-      <h3>Source</h3>
-      <span>
-        <a
-          href="https://en.wiktionary.org/wiki/keyboard"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          https://en.wiktionary.org/wiki/keyboard
-        </a>
-      </span>
+      <div>
+        <h3>Source</h3>
+        <span>
+          <a
+            href="https://en.wiktionary.org/wiki/keyboard"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            https://en.wiktionary.org/wiki/keyboard
+          </a>
+        </span>
+      </div>
     </Div>
   );
 };
@@ -78,5 +80,35 @@ const Div = styled.div`
     background-size: 1.4rem;
     margin-left: 0.6rem;
     padding: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 2rem;
+      margin: 4.4rem 0 2.7rem 0;
+    }
+    li,
+    ul p {
+      font-size: 1.8rem;
+    }
+    ul {
+      padding-left: 4.8rem;
+    }
+    hr + div {
+      margin-top: 2.1rem;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      a,
+      h3 {
+        text-decoration: none;
+      }
+      h3 {
+        margin: 0;
+      }
+    }
+    span::after {
+      background-size: 1.6rem;
+    }
   }
 `;

@@ -73,4 +73,14 @@ const HeaderContainer = styled.header`
     height: 3.2rem;
     background-color: #e9e9e9;
   }
+
+  @media (min-width: 768px) {
+    margin: 5.8rem 0 5.15rem 0;
+    img {
+      max-width: 3.2rem;
+    }
+    button {
+      font-size: 1.8rem;
+    }
+  }
 `;

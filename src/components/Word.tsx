@@ -46,15 +46,29 @@ const Div = styled.div`
     width: 100%;
     height: auto;
   }
+
+  @media (min-width: 768px) {
+    margin: 5rem 0 4.4rem 0;
+    h1 {
+      font-size: 6.4rem;
+      margin-bottom: 1.1rem;
+    }
+    p {
+      font-size: 2.4rem;
+    }
+    div img {
+      max-width: 7.5rem;
+    }
+  }
 `;
 
 export const WordMean = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.6rem;
   margin-top: 2.9rem;
   hr {
-    max-width: 26.6rem;
     width: 100%;
     opacity: 0.25;
   }
@@ -63,5 +77,13 @@ export const WordMean = styled.div`
     font-size: 1.8rem;
     font-weight: 700;
     font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    margin-top: 4.2rem;
+    gap: 3.2rem;
+    h2 {
+      font-size: 2.4rem;
+    }
   }
 `;
