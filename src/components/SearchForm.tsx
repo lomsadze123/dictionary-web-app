@@ -3,17 +3,60 @@ import search from "../assets/icon-search.svg";
 import Word from "./Word";
 import Meaning from "./Meaning";
 import Verbs from "./Verbs";
+import { useState } from "react";
+import Data from "./Data";
+import axios from "axios";
 
 const SearchForm = () => {
+  const [data, setData] = useState(Data);
+  const [value, setValue] = useState("person");
+
+  const fetchData = async () => {
+    try {
+      const req = await axios.get(
+        "https://api.dictionaryapi.dev/api/v2/entries/en/" + value
+      );
+      const reqData = req.data;
+      setData(reqData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (value !== "") {
+      fetchData();
+    }
+  };
+
+  const check = data[0].meanings[1] && data[0].meanings[1];
+  const check2 = data[0].meanings[2] && data[0].meanings[2].definitions;
+
   return (
     <Main>
-      <form>
-        <input type="text" placeholder="Search for any word…" />
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={(e) => setValue(e.currentTarget.value)}
+          type="text"
+          placeholder="Search for any word…"
+        />
         <img src={search} alt="search bar icon" />
       </form>
-      <Word />
-      <Meaning />
-      <Verbs />
+      <Word
+        word={data[0].word}
+        phonetic={data[0].phonetic}
+        audio={data[0].phonetics.length > 0 ? data[0].phonetics[0].audio : null}
+      />
+      <Meaning
+        definitions={data[0].meanings[0].definitions}
+        synonyms={data[0].meanings[0].synonyms}
+      />
+      <Verbs
+        definitions={check ? check.definitions : check2}
+        check={check && check.partOfSpeech}
+        link={data[0].sourceUrls}
+      />
     </Main>
   );
 };
@@ -53,6 +96,9 @@ const Main = styled.main`
     }
     input {
       font-size: 2rem;
+    }
+    form:focus-within {
+      border: 0.1rem solid #a445ed;
     }
   }
 `;

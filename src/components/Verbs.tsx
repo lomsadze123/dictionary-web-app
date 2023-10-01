@@ -1,29 +1,44 @@
 import styled from "styled-components";
 import { WordMean } from "./Word";
 import newWindow from "../assets/icon-new-window.svg";
+import { Types } from "./Meaning";
+import { Fragment } from "react";
 
-const Verbs = () => {
+const Verbs = ({
+  definitions,
+  check,
+  link,
+}: {
+  definitions: Types[];
+  check: string;
+  link: string[];
+}) => {
   return (
     <Div>
-      <WordMean>
-        <h2>verb</h2>
-        <hr />
-      </WordMean>
-      <p>Meaning</p>
-      <ul>
-        <li>To type on a computer keyboard.</li>
-        <p>“Keyboarding is the part of this job I hate the most.”</p>
-      </ul>
+      {definitions && (
+        <>
+          <WordMean className="margin">
+            <h2>{check}</h2>
+            <hr />
+          </WordMean>
+          <p>Meaning</p>
+          <ul>
+            {definitions.map((item, index) => (
+              <Fragment key={index + 100}>
+                <li key={index}>{item.definition}</li>
+                <p>{item.example && `"${item.example}"`}</p>
+              </Fragment>
+            ))}
+          </ul>
+        </>
+      )}
       <hr />
+
       <div>
         <h3>Source</h3>
         <span>
-          <a
-            href="https://en.wiktionary.org/wiki/keyboard"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            https://en.wiktionary.org/wiki/keyboard
+          <a href={link[0]} target="_blank" rel="noreferrer noopener">
+            {link[0]}
           </a>
         </span>
       </div>
@@ -34,6 +49,9 @@ const Verbs = () => {
 export default Verbs;
 
 const Div = styled.div`
+  .margin {
+    margin: 0;
+  }
   margin: 0 0 8.5rem 0;
   p {
     font-size: 1.6rem;
@@ -56,11 +74,12 @@ const Div = styled.div`
   }
   ul p {
     color: #757575;
-    margin: 1.3rem 0 3.2rem 0;
+    margin: 1.3rem 0 0 0;
     font-size: 1.5rem;
   }
   hr {
     opacity: 0.25;
+    margin: 3.2rem 0 0.8rem 0;
   }
   h3,
   a {
@@ -68,9 +87,9 @@ const Div = styled.div`
     font-weight: 400;
     color: #757575;
     text-decoration: underline;
-    margin: 2.4rem 0 0.8rem 0;
   }
   a {
+    margin: 2.4rem 0 0.8rem 0;
     color: #2d2d2d;
     margin: 0;
   }
@@ -94,8 +113,11 @@ const Div = styled.div`
     ul {
       padding-left: 4.8rem;
     }
+    hr {
+      margin: 3.2rem 0 2rem 0;
+    }
     hr + div {
-      margin-top: 2.1rem;
+      margin-top: 0;
       display: flex;
       align-items: center;
       gap: 2.5rem;

@@ -1,28 +1,41 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 
-const Meaning = () => {
+export interface Types {
+  definition: string;
+  synonyms: never[];
+  antonyms: never[];
+  example?: string;
+}
+
+const Meaning = ({
+  definitions,
+  synonyms,
+}: {
+  definitions: Types[];
+  synonyms: never[] | string[];
+}) => {
   return (
     <Div>
       <p>Meaning</p>
       <ul>
-        <li>
-          (etc.) A set of keys used to operate a typewriter, computer etc.
-        </li>
-        <li>
-          A component of many instruments including the piano, organ, and
-          harpsichord consisting of usually black and white keys that cause
-          different tones to be produced when struck.
-        </li>
-        <li>
-          A device with keys of a musical keyboard, used to control electronic
-          sound-producing devices which may be built into or separate from the
-          keyboard device.
-        </li>
+        {definitions.map((item, index) => (
+          <Fragment key={index + 100}>
+            <li key={index}>{item.definition}</li>
+            <h3 key={item.definition}>{item.example && `"${item.example}"`}</h3>
+          </Fragment>
+        ))}
       </ul>
-      <div>
-        <p>Synonyms</p>
-        <h2>electronic keyboard</h2>
-      </div>
+      {synonyms.length > 0 && (
+        <div className="margin">
+          <p>Synonyms</p>
+          <div>
+            {synonyms.map((synonym, index) => (
+              <h2 key={index}>{synonym}</h2>
+            ))}
+          </div>
+        </div>
+      )}
     </Div>
   );
 };
@@ -56,13 +69,27 @@ const Div = styled.div`
     font-size: 1.6rem;
     font-weight: 700;
   }
+  h3 {
+    font-size: 1.5rem;
+    color: #757575;
+    margin: 1.3rem 0;
+    line-height: 2.4rem;
+    font-weight: 400;
+  }
   div {
     display: flex;
     gap: 2.4rem;
-    margin-top: 2rem;
     p {
       margin: 0;
     }
+    div {
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+  }
+  .margin {
+    margin: 2rem 0 1.2rem 0;
   }
 
   @media (min-width: 768px) {
@@ -79,9 +106,17 @@ const Div = styled.div`
     h2 {
       font-size: 2rem;
     }
-    div {
-      margin-top: 4.1rem;
-      gap: 4rem;
+    h3 {
+      font-size: 1.8rem;
     }
+    div {
+      gap: 4rem;
+      div {
+        gap: 1rem;
+      }
+    }
+  }
+  .margin {
+    margin: 4.1rem 0 4rem 0;
   }
 `;

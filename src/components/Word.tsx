@@ -1,15 +1,31 @@
 import styled from "styled-components";
 
-const Word = () => {
+const Word = ({
+  word,
+  phonetic,
+  audio,
+}: {
+  word: string;
+  phonetic: string;
+  audio: string | null;
+}) => {
+  const audios = !!audio ? new Audio(audio) : null;
+  const handleSound = () => {
+    if (audios) {
+      audios.play();
+    }
+  };
+
   return (
     <Div>
       <article>
         <div>
-          <h1>keyboard</h1>
-          <p>/'ki:bɔ:d/</p>
+          <h1>{word}</h1>
+          <p>{phonetic}</p>
         </div>
         <div>
           <svg
+            onClick={handleSound}
             xmlns="http://www.w3.org/2000/svg"
             width="75"
             height="75"
