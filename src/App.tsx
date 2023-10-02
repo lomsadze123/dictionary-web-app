@@ -1,19 +1,47 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [mode, setMode] = useState("light");
+  const local = localStorage.getItem("mode");
+
+  if (local === null) {
+    localStorage.setItem("mode", "light");
+  }
+
+  useEffect(() => {
+    local && setMode(local);
+  }, []);
+
+  const handleSwitch = () => {
+    if (local === "light") {
+      localStorage.removeItem("mode");
+      localStorage.setItem("mode", "dark");
+      setMode("dark");
+    } else {
+      localStorage.removeItem("mode");
+      localStorage.setItem("mode", "light");
+      setMode("light");
+    }
+  };
+
   return (
-    <Div>
-      <Header />
-      <SearchForm />
-    </Div>
+    <Body color={mode === "light"}>
+      <div className="div">
+        <Header handleSwitch={handleSwitch} mode={mode} />
+        <SearchForm mode={mode} />
+      </div>
+    </Body>
   );
 }
 
 export default App;
 
-const Div = styled.div`
+const Body = styled.div<{ color: boolean }>`
+  min-height: 100vh;
+  background-color: ${(props) => (props.color ? "#FFF" : "#050505")};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +53,9 @@ const Div = styled.div`
 
   @media (min-width: 1000px) {
     padding: 0;
-    max-width: 73.6rem;
+    .div {
+      max-width: 73.6rem;
+    }
     margin: 0 auto;
   }
 `;

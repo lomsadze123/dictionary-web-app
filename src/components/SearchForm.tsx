@@ -6,10 +6,12 @@ import Verbs from "./Verbs";
 import { useState } from "react";
 import Data from "./Data";
 import axios from "axios";
+import Empty from "./Empty";
 
-const SearchForm = () => {
+const SearchForm = ({ mode }: { mode: string }) => {
   const [data, setData] = useState(Data);
   const [value, setValue] = useState("person");
+  const [searched, setSearched] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -18,7 +20,9 @@ const SearchForm = () => {
       );
       const reqData = req.data;
       setData(reqData);
+      setSearched(true);
     } catch (error) {
+      setSearched(false);
       console.log(error);
     }
   };
@@ -35,28 +39,40 @@ const SearchForm = () => {
 
   return (
     <Main>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form color={mode === "light"} onSubmit={handleSubmit}>
+        <Input
+          color={mode === "light"}
           onChange={(e) => setValue(e.currentTarget.value)}
           type="text"
           placeholder="Search for any word…"
         />
         <img src={search} alt="search bar icon" />
-      </form>
-      <Word
-        word={data[0].word}
-        phonetic={data[0].phonetic}
-        audio={data[0].phonetics.length > 0 ? data[0].phonetics[0].audio : null}
-      />
-      <Meaning
-        definitions={data[0].meanings[0].definitions}
-        synonyms={data[0].meanings[0].synonyms}
-      />
-      <Verbs
-        definitions={check ? check.definitions : check2}
-        check={check && check.partOfSpeech}
-        link={data[0].sourceUrls}
-      />
+      </Form>
+      {searched ? (
+        <>
+          <Word
+            word={data[0].word}
+            phonetic={data[0].phonetic}
+            audio={
+              data[0].phonetics.length > 0 ? data[0].phonetics[0].audio : null
+            }
+            mode={mode}
+          />
+          <Meaning
+            definitions={data[0].meanings[0].definitions}
+            synonyms={data[0].meanings[0].synonyms}
+            mode={mode}
+          />
+          <Verbs
+            definitions={check ? check.definitions : check2}
+            check={check && check.partOfSpeech}
+            link={data[0].sourceUrls}
+            mode={mode}
+          />
+        </>
+      ) : (
+        <Empty mode={mode} />
+      )}
     </Main>
   );
 };
@@ -66,7 +82,6 @@ export default SearchForm;
 const Main = styled.main`
   form {
     width: 100%;
-    background-color: #f4f4f4;
     border-radius: 1.6rem;
     padding: 1.4rem 2.44rem 1.5rem 2.4rem;
     display: flex;
@@ -83,8 +98,6 @@ const Main = styled.main`
     outline: 0;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #2d2d2d;
-    background-color: #f4f4f4;
   }
   input::placeholder {
     opacity: 0.5;
@@ -102,3 +115,8 @@ const Main = styled.main`
     }
   }
 `;
+const Form = styled.form<{ color: boolean }>`
+  background-color: ${(props) => (props.color ? "#f4f4f4" : "#1F1F1F")};
+  color: ${(props) => (props.color ? "#2d2d2d" : "#FFF")};
+`;
+const Input = styled(Form).attrs({ as: "input" })<{ color: boolean }>``;

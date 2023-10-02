@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
+import { Li } from "./Verbs";
 
 export interface Types {
   definition: string;
@@ -11,9 +12,11 @@ export interface Types {
 const Meaning = ({
   definitions,
   synonyms,
+  mode,
 }: {
   definitions: Types[];
   synonyms: never[] | string[];
+  mode: string;
 }) => {
   return (
     <Div>
@@ -21,8 +24,14 @@ const Meaning = ({
       <ul>
         {definitions.map((item, index) => (
           <Fragment key={index + 100}>
-            <li key={index}>{item.definition}</li>
-            <h3 key={item.definition}>{item.example && `"${item.example}"`}</h3>
+            <Li color={mode === "light"} key={index}>
+              {item.definition}
+            </Li>
+            {item.example && (
+              <h3 key={item.definition}>
+                {item.example && `"${item.example}"`}
+              </h3>
+            )}
           </Fragment>
         ))}
       </ul>
@@ -53,7 +62,6 @@ const Div = styled.div`
     padding-left: 1.8rem;
   }
   li {
-    color: #2d2d2d;
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 2.4rem;

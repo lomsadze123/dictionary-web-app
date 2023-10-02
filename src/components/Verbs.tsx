@@ -3,29 +3,34 @@ import { WordMean } from "./Word";
 import newWindow from "../assets/icon-new-window.svg";
 import { Types } from "./Meaning";
 import { Fragment } from "react";
+import { H2 } from "./Word";
 
 const Verbs = ({
   definitions,
   check,
   link,
+  mode,
 }: {
   definitions: Types[];
   check: string;
   link: string[];
+  mode: string;
 }) => {
   return (
     <Div>
       {definitions && (
         <>
           <WordMean className="margin">
-            <h2>{check}</h2>
+            <H2 color={mode === "light"}>{check}</H2>
             <hr />
           </WordMean>
           <p>Meaning</p>
           <ul>
             {definitions.map((item, index) => (
               <Fragment key={index + 100}>
-                <li key={index}>{item.definition}</li>
+                <Li color={mode === "light"} key={index}>
+                  {item.definition}
+                </Li>
                 <p>{item.example && `"${item.example}"`}</p>
               </Fragment>
             ))}
@@ -37,9 +42,14 @@ const Verbs = ({
       <div>
         <h3>Source</h3>
         <span>
-          <a href={link[0]} target="_blank" rel="noreferrer noopener">
+          <A
+            color={mode === "light"}
+            href={link[0]}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             {link[0]}
-          </a>
+          </A>
         </span>
       </div>
     </Div>
@@ -67,7 +77,6 @@ const Div = styled.div`
   }
   li,
   ul p {
-    color: #2d2d2d;
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 2.4rem;
@@ -81,16 +90,20 @@ const Div = styled.div`
     opacity: 0.25;
     margin: 3.2rem 0 0.8rem 0;
   }
+  h2 {
+    margin: 3.2rem 0 0.8rem 0;
+  }
+  h3 {
+    color: #757575;
+  }
   h3,
   a {
     font-size: 1.4rem;
     font-weight: 400;
-    color: #757575;
     text-decoration: underline;
   }
   a {
     margin: 2.4rem 0 0.8rem 0;
-    color: #2d2d2d;
     margin: 0;
   }
   span::after {
@@ -104,7 +117,7 @@ const Div = styled.div`
   @media (min-width: 768px) {
     p {
       font-size: 2rem;
-      margin: 4.4rem 0 2.7rem 0;
+      margin: 3.4rem 0 2.7rem 0;
     }
     li,
     ul p {
@@ -114,6 +127,9 @@ const Div = styled.div`
       padding-left: 4.8rem;
     }
     hr {
+      margin: 3.2rem 0 2rem 0;
+    }
+    h2 {
       margin: 3.2rem 0 2rem 0;
     }
     hr + div {
@@ -134,3 +150,8 @@ const Div = styled.div`
     }
   }
 `;
+
+export const Li = styled.li<{ color: boolean }>`
+  color: ${(props) => (props.color ? "#2d2d2d" : "#FFF")};
+`;
+const A = styled(Li).attrs({ as: "a" })<{ color: boolean }>``;

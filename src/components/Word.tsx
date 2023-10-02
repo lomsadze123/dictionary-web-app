@@ -4,10 +4,12 @@ const Word = ({
   word,
   phonetic,
   audio,
+  mode,
 }: {
   word: string;
   phonetic: string;
   audio: string | null;
+  mode: string;
 }) => {
   const audios = !!audio ? new Audio(audio) : null;
   const handleSound = () => {
@@ -20,7 +22,7 @@ const Word = ({
     <Div>
       <article>
         <div>
-          <h1>{word}</h1>
+          <H1 color={mode === "light"}>{word}</H1>
           <p>{phonetic}</p>
         </div>
         <div>
@@ -49,7 +51,7 @@ const Word = ({
         </div>
       </article>
       <WordMean>
-        <h2>noun</h2>
+        <H2 color={mode === "light"}>noun</H2>
         <hr />
       </WordMean>
     </Div>
@@ -66,7 +68,6 @@ const Div = styled.div`
     align-items: center;
   }
   h1 {
-    color: #2d2d2d;
     font-size: 3.2rem;
     font-weight: 700;
     margin-bottom: 0.8rem;
@@ -116,7 +117,6 @@ export const WordMean = styled.div`
     opacity: 0.25;
   }
   h2 {
-    color: #2d2d2d;
     font-size: 1.8rem;
     font-weight: 700;
     font-style: italic;
@@ -130,3 +130,7 @@ export const WordMean = styled.div`
     }
   }
 `;
+const H1 = styled.h1<{ color: boolean }>`
+  color: ${(props) => (props.color ? "#2d2d2d" : "#FFF")};
+`;
+export const H2 = styled(H1).attrs({ as: "h2" })<{ color: boolean }>``;
