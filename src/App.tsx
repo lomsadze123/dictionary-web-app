@@ -2,10 +2,12 @@ import styled from "styled-components";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import { useEffect, useState } from "react";
+import GlobalStyle from "./components/reset";
 
 function App() {
   const [mode, setMode] = useState("light");
   const local = localStorage.getItem("mode");
+  const [font, setFont] = useState("Inter");
 
   if (local === null) {
     localStorage.setItem("mode", "light");
@@ -28,12 +30,15 @@ function App() {
   };
 
   return (
-    <Body color={mode === "light"}>
-      <div className="div">
-        <Header handleSwitch={handleSwitch} mode={mode} />
-        <SearchForm mode={mode} />
-      </div>
-    </Body>
+    <>
+      <GlobalStyle about={font} />
+      <Body color={mode === "light"}>
+        <div className="div">
+          <Header handleSwitch={handleSwitch} mode={mode} setFont={setFont} />
+          <SearchForm mode={mode} />
+        </div>
+      </Body>
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ about: string }>`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: ${(props) => props.about}, sans-serif;
   }
 
   html {

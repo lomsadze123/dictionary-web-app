@@ -6,12 +6,20 @@ import { useState } from "react";
 const Header = ({
   handleSwitch,
   mode,
+  setFont,
 }: {
   handleSwitch: () => void;
   mode: string;
+  setFont: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [hide, setHide] = useState(false);
-  // const [font,setFont] = useState('Sans Serif');
+
+  const handleFont = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.target instanceof HTMLElement) {
+      const value = e.target.getAttribute("value");
+      value && setFont(value);
+    }
+  };
 
   return (
     <HeaderContainer>
@@ -20,10 +28,16 @@ const Header = ({
         <div onClick={() => setHide(!hide)} className="relative">
           <Button color={mode === "light"}>Sans Serif</Button>
           {hide && (
-            <DivAbsolute color={mode === "light"}>
-              <H2 color={mode === "light"}>Sans Serif</H2>
-              <H2 color={mode === "light"}>Serif</H2>
-              <H2 color={mode === "light"}>Mono</H2>
+            <DivAbsolute color={mode === "light"} onClick={handleFont}>
+              <H2 color={mode === "light"} value="Inter">
+                Sans Serif
+              </H2>
+              <H2 color={mode === "light"} value="Lora">
+                Serif
+              </H2>
+              <H2 color={mode === "light"} value="Inconsolata">
+                Mono
+              </H2>
             </DivAbsolute>
           )}
         </div>
