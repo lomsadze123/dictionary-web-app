@@ -7,7 +7,7 @@ The Dictionary App is a web-based application that allows users to search for wo
 ```bash
 git clone https://github.com/lomsadze123/dictionary-web-app.git
 ```
-2. Install Dependencies: Install the project dependencies using npm or yarn:
+2. Install Dependencies: Install the project dependencies using npm:
 ```bash
 npm install
 ```
