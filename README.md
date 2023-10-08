@@ -1,6 +1,6 @@
 # Dictionary Web App
 
-This is an E-Commerce Product Page for showcasing and purchasing products. It is a front-end project built with React and Styled Components for styling. The page is designed to provide a seamless and user-friendly experience for browsing and purchasing products.
+The Dictionary App is a web-based application that allows users to explore word definitions, meanings, synonyms, and more. Providing a seamless way to understand and use the English language.
 
 ## Setup
 1. Clone the Repository: Start by cloning the repository to your local machine using the following command:
@@ -25,5 +25,5 @@ npm run dev
 - React
 - TypeScript
 - useState Hook
-- useEffect Hook
-- Framer Motion
+- LocalStorage
+- Dark Mode
